@@ -3,6 +3,7 @@ pipeline {
 
     stages {
         // This is a comment
+        /*
         stage('Build') {
             agent {
                 docker {
@@ -21,6 +22,7 @@ pipeline {
                 '''
             }
         }
+        */
         /*
         Line 1
         Line 2
