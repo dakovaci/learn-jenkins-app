@@ -21,4 +21,12 @@ pipeline {
             }
         }
     }
+        stage('Test'){
+            steps {
+                echo 'Test stage'
+                sh '''
+                    echo "in Test"
+                '''
+            }
+        }
 }
