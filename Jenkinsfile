@@ -42,7 +42,7 @@ pipeline {
                 '''
             }
         }
-                stage('E2E'){
+        stage('E2E'){
             agent {
                 docker {
                     image 'mcr.microsoft.com/playwright:v1.60.0-noble'
@@ -51,7 +51,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    npm install serve
+                    npm install -g serve
                     node_modules/.bin/serve -s build &
                     sleep 10
                     npx playwright test
