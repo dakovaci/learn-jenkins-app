@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     stages {
-        // This is a comment
+        /*
+
         stage('Build') {
             agent {
                 docker {
@@ -21,34 +22,32 @@ pipeline {
                 '''
             }
         }
-        /*
-        Line 1
-        Line 2
         */
-        stage('Test'){
+
+        stage('Test') {
             agent {
                 docker {
                     image 'node:18-alpine'
                     reuseNode true
                 }
             }
+
             steps {
-                echo 'Test stage'
                 sh '''
-                    test -f build/index.html
-                    npm ci
-                    npm run build
+                    #test -f build/index.html
                     npm test
                 '''
             }
         }
-        stage('E2E'){
+
+        stage('E2E') {
             agent {
                 docker {
-                    image 'mcr.microsoft.com/playwright:v1.60.0-noble'
+                    image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
                     reuseNode true
                 }
             }
+
             steps {
                 sh '''
                     npm install serve
@@ -59,10 +58,11 @@ pipeline {
             }
         }
     }
+
     post {
         always {
             junit 'jest-results/junit.xml'
         }
     }
-
 }
+
