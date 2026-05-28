@@ -72,7 +72,7 @@ pipeline {
                 }
             }
         }
-    }
+    
 
     stage('Deploy'){
         agent {
@@ -87,6 +87,7 @@ pipeline {
                 netlify --version
             '''
         }
+    }
     }
 }
 
