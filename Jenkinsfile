@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-        /*
 
         stage('Build') {
             agent {
@@ -19,11 +18,9 @@ pipeline {
                     npm ci
                     npm run build
                     ls -la
-                    
                 '''
             }
         }
-        */
 
         stage('Tests') {
             parallel {
@@ -51,7 +48,7 @@ pipeline {
                 stage('E2E') {
                     agent {
                         docker {
-                            image 'mcr.microsoft.com/playwright:v1.60.0-jammy'
+                            image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
                             reuseNode true
                         }
                     }
@@ -73,22 +70,21 @@ pipeline {
                 }
             }
         }
-    
 
-    stage('Deploy'){
-        agent {
-            docker {
-                image 'node:18-alpine'
-                reuseNode true
+        stage('Deploy') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm install netlify-cli
+                    node_modules/.bin/netlify --version
+                '''
             }
         }
-        steps {
-            sh '''
-                npm install netlify-cli@20.1.1
-                node_modules/.bin/netlify --version
-            '''
-        }
-    }
     }
 }
 
